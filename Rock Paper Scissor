@@ -1,0 +1,32 @@
+import random
+
+print("Hello! Lets play rock, paper, scissor.")
+lis = ["PAPER", "ROCK", "SCISSOR"]
+random.shuffle(lis)
+print(lis)
+
+cpu_out = random.choice(lis)
+
+flg = True
+while flg:
+    inp = input("To exit type \"exit\" else press any key to continue: ")
+    if inp.upper() == "EXIT":
+        exit()
+    else:    
+        sel = input("Choose Rock, Paper or Scissor : ")
+        print("Your choice : " + sel)
+        cpu_out = random.choice(lis)
+        if sel.upper() == cpu_out.upper():
+            print("CPU has chosen : " + cpu_out)
+            print("Draw!!!!!!")
+        elif (sel.upper() == "ROCK" and cpu_out.upper() == "SCISSOR") or (sel.upper() == "PAPER" and cpu_out.upper() == "ROCK") or (sel.upper() == "SCISSOR" and cpu_out.upper() == "PAPER"):
+            print("CPU has chosen : " + cpu_out)
+            print("You win.")
+        else:
+            if sel.upper() not in lis:
+                print("Sorry but this is not in option.")
+            else:
+                print("CPU has chosen : " + cpu_out)
+                print("CPU Wins.")
+
+
