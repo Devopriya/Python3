@@ -5,6 +5,9 @@ def link_catcher(url, fin_url):
   from bs4 import BeautifulSoup as bs
   import pandas as pd
   
+  pd.set_option("display.max_colwidth", 10000)
+  
+  
   # Setting Parameters
   response = requests.get(url)
   html_page = bs(response.content, "html.parser")
