@@ -38,13 +38,15 @@ def extract_magnet(keyword, url, fin_url):
 
   magnet_link_set = []
   for i in link_catcher(url, fin_url)['link']:
+
+    for j in keyword.split(' '):
   
-    if keyword in i:
-      url_int = i
+      if j.lower() in i.lower():
+        url_int = i
 
-      data_internal = link_catcher(url_int, fin_url)
+        data_internal = link_catcher(url_int, fin_url)
 
-      magnet_link_set.append(data_internal[data_internal["category"]=="magnet"]['link'].drop_duplicates().reset_index(drop=True).to_string().split(' ')[-1])
+        magnet_link_set.append(data_internal[data_internal["category"]=="magnet"]['link'].drop_duplicates().reset_index(drop=True).to_string().split(' ')[-1])
     
 
   return set(magnet_link_set)
@@ -52,19 +54,32 @@ def extract_magnet(keyword, url, fin_url):
 
 
 def main():
-	url = input("\n\nPlease enter the torrent search link : \n\n")
+
+	keyword = input("\n\nPlease enter the keyword you want to search : ")
+	
+	page = input("\n\nPlease enter the page number you want to search : ")
+	
 	fin_url = "https://www.1377x.to"
 	
-	keyword = input("\n\nPlease enter the keyword you want to seacrh : ")
+	keyword_fin = keyword.replace(' ', '%20')
+
+	
+	url = fin_url + '/search/' + keyword_fin + '/' + page.replace(' ', '') + '/'
+	
 	
 	magnet_link_set = extract_magnet(keyword, url, fin_url)
 	
 	print("\n\nBelow are the Magnet values extracted : \n")
  
-	for i in magnet_link_set:
-		print(i)
+	with open('temp.txt','w') as firstfile: 
+		for i in magnet_link_set:
+			firstfile.write(i)
+			firstfile.write("\n")
+
+			
+		firstfile.close()
 	
 
 
 if __name__ == "__main__":
-    main()	
+    main()
