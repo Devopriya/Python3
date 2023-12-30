@@ -73,6 +73,7 @@ def main():
  
 	with open('temp.txt','w') as firstfile: 
 		for i in magnet_link_set:
+			print(i)
 			firstfile.write(i)
 			firstfile.write("\n")
 
